@@ -5,10 +5,15 @@ namespace Gameplay.Inventory
 {
     public class InventoryDraggableItem : Draggable
     {
-        private InventoryHoldableType _inventoryItemType;
+        private ObjectDraggableManager.DraggableType _inventoryItemType;
         protected override void Start()
         {
             base.Start();
+        }
+
+        public bool IsValidDragDestination(InventoryCollection collection, InventoryCollectionSlot collectionSlot)
+        {
+            return _inventoryItemType == collection.inventoryCollectionHoldableType && collectionSlot.CanCollectItem(this);
         }
     }
 }

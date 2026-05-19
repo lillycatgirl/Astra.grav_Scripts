@@ -1,18 +1,13 @@
 ﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Gameplay.Inventory
 {
-    public enum InventoryHoldableType
-    {
-        Planet,
-        Consumable
-    }
     public class InventoriesManager : MonoBehaviour
     {
-        
         public static InventoriesManager Instance;
-
+        private List<InventoryCollection> _inventories = new();
         private void Awake()
         {
             if (Instance == null)
@@ -23,6 +18,21 @@ namespace Gameplay.Inventory
             {
                 Destroy(this);
             }
+        }
+
+        public void AddInventory(InventoryCollection inventory)
+        {
+            _inventories.Add(inventory);
+        }
+
+        public void RemoveInventory(InventoryCollection inventory)
+        {
+            _inventories.Remove(inventory);
+        }
+
+        public List<InventoryCollection> GetInventories()
+        {
+            return _inventories;
         }
     }
 }

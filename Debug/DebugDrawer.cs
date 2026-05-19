@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using Gameplay.Inventory;
 using UnityEngine;
 
 namespace Debug
@@ -9,25 +11,39 @@ namespace Debug
         [SerializeField] private bool massVelocity;
         [SerializeField] private bool massForce;
         [SerializeField] private bool massAcceleration;
+        [SerializeField] private bool inventoryBoundaries;
         
         // References
         private ObjectGravityManager _objectGravityManager;
         private ObjectDraggableManager _objectDraggableManager;
         private GameManager _gameManager;
+        private InventoriesManager _inventoriesManager;
         void Start()
         {
             if (!Application.isEditor) this.enabled = false;
+            runInEditMode = true;
             _objectGravityManager = ObjectGravityManager.Instance;
             _objectDraggableManager = ObjectDraggableManager.Instance;
             _gameManager = GameManager.Instance;
+            _inventoriesManager = InventoriesManager.Instance;
         }
 
         void OnDrawGizmos()
         {
             if (!Application.isPlaying) return;
             if (arenaWalls) DrawWalls();
+            if (inventoryBoundaries) DrawInventories();
         }
 
+        private void DrawInventories()
+        {
+            foreach (var inventoryCollection in _inventoriesManager.GetInventories())
+            {
+                Gizmos.color = Color.green;
+                Gizmos.DrawCube(inventoryCollection.transform.position, inventoryCollection.GetDimensions());
+            }
+        }
+        
         private void DrawWalls()
         {
             Gizmos.color = Color.yellow;
