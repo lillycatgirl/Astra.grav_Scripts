@@ -11,9 +11,11 @@ namespace Gameplay.Inventory
             base.Start();
         }
 
+        // old code atp
         public bool IsValidDragDestination(InventoryCollection collection, InventoryCollectionSlot collectionSlot)
         {
             return _inventoryItemType == collection.inventoryCollectionHoldableType && collectionSlot.CanCollectItem(this);
         }
+        
     }
 }

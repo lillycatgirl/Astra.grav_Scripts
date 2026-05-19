@@ -5,7 +5,7 @@ public class Draggable : MonoBehaviour
 {
     public float radius;
     public float easing = 12;
-    public ObjectDraggableManager.DraggableType[] draggableType;
+    public ObjectDraggableManager.DraggableType draggableType;
     
     private ObjectDraggableManager _objectDraggableManager;
 

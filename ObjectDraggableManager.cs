@@ -81,9 +81,9 @@ public class ObjectDraggableManager : MonoBehaviour
             case GameManager.GameState.PostRound:
                 return false;
             case GameManager.GameState.Shop:
-                return draggable.draggableType.Any(draggableType => _shopDraggables.Contains(draggableType));
+                return draggable.draggableType == DraggableType.ShopItem;
             case GameManager.GameState.Setup:
-                return draggable.draggableType.Any(draggableType => _setupDraggables.Contains(draggableType));
+                return draggable.draggableType is DraggableType.Planet or DraggableType.PlanetVectorArrow;
             case GameManager.GameState.Round:
             default:
                 return false;

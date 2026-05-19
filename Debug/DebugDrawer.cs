@@ -21,7 +21,6 @@ namespace Debug
         void Start()
         {
             if (!Application.isEditor) this.enabled = false;
-            runInEditMode = true;
             _objectGravityManager = ObjectGravityManager.Instance;
             _objectDraggableManager = ObjectDraggableManager.Instance;
             _gameManager = GameManager.Instance;
@@ -41,6 +40,15 @@ namespace Debug
             {
                 Gizmos.color = Color.green;
                 Gizmos.DrawCube(inventoryCollection.transform.position, inventoryCollection.GetDimensions());
+                foreach (var slot in inventoryCollection.GetSlots())
+                {
+                    Gizmos.color = new Color(0.99f, 0.87f, 0.09f);
+                    if (!slot.CanCollectItem())
+                    {
+                        Gizmos.color = Color.red;
+                    }
+                    Gizmos.DrawCube(slot.transform.position, slot.GetDimensions());
+                }
             }
         }
         

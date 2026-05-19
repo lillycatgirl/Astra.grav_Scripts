@@ -7,9 +7,9 @@ namespace Gameplay.Inventory
     {
         public ObjectDraggableManager.DraggableType inventoryCollectionHoldableType;
         
-        private List<InventoryCollectionSlot>  _slots = new();
+        private List<InventoryCollectionSlot> _slots = new();
         
-        private Vector2 _dimensions;
+        [SerializeField] private Vector2 dimensions;
         
         private void Start()
         {
@@ -23,7 +23,20 @@ namespace Gameplay.Inventory
 
         public Vector2 GetDimensions()
         {
-            return _dimensions;
+            return dimensions;
+        }
+
+        public void AddSlot(InventoryCollectionSlot slot)
+        {
+            _slots.Add(slot);
+        }
+        public void RemoveSlot(InventoryCollectionSlot slot)
+        {
+            _slots.Remove(slot);
+        }
+        public List<InventoryCollectionSlot> GetSlots()
+        {
+            return _slots;
         }
     }
 }
