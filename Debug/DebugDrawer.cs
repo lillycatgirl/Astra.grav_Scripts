@@ -39,7 +39,8 @@ namespace Debug
             foreach (var inventoryCollection in _inventoriesManager.GetInventories())
             {
                 Gizmos.color = Color.green;
-                Gizmos.DrawCube(inventoryCollection.transform.position, inventoryCollection.GetDimensions());
+                var rectTransform = inventoryCollection.GetComponent<RectTransform>();
+                DrawRectTransform(rectTransform);
                 foreach (var slot in inventoryCollection.GetSlots())
                 {
                     Gizmos.color = new Color(0.99f, 0.87f, 0.09f);
@@ -47,9 +48,22 @@ namespace Debug
                     {
                         Gizmos.color = Color.red;
                     }
-                    Gizmos.DrawCube(slot.transform.position, slot.GetDimensions());
+
+                    var slotRectTransform = slot.GetComponent<RectTransform>();
+                    DrawRectTransform(slotRectTransform);
                 }
             }
+        }
+        
+        private static void DrawRectTransform(RectTransform rectTransform)
+        {
+            Vector3[] corners = new Vector3[4];
+            rectTransform.GetWorldCorners(corners);
+
+            Vector3 center = (corners[0] + corners[2]) / 2f;
+            // get diagonal dist
+            Vector3 size = corners[2] - corners[0];
+            Gizmos.DrawWireCube(center, size);
         }
         
         private void DrawWalls()

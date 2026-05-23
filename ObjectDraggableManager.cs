@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Gameplay.Inventory;
 using UI;
 using UnityEngine;
 
@@ -25,6 +26,7 @@ public class ObjectDraggableManager : MonoBehaviour
     
     private Draggable _selectedObject;
     private bool _isObjectSelected = false;
+    private Vector2 _initialDragPosition = new();
     
     public static ObjectDraggableManager Instance;
     
@@ -71,6 +73,7 @@ public class ObjectDraggableManager : MonoBehaviour
         _dragOffsets[_selectedObject] = new Vector3(_dragOffsets[_selectedObject].x, _dragOffsets[_selectedObject].y, 0);
         _selectedObject = null;
         _isObjectSelected = false;
+        InventoriesManager.Instance.TryMoveInventoryItem((InventoryDraggableItem)_selectedObject, Input.mousePosition, _initialDragPosition);
     }
 
     private bool ValidDraggableObject(Draggable draggable) 
@@ -109,6 +112,8 @@ public class ObjectDraggableManager : MonoBehaviour
             {
                 _dragOffsets[drag] = pos;
             }
+
+            _initialDragPosition = Input.mousePosition;
             break;
         }
     }
